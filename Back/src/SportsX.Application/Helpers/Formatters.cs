@@ -2,9 +2,9 @@ using System;
 
 namespace SportsX.Application.Helpers
 {
-    public static class Formatters
+    public class Formatters
     {
-        public static string FromatCPForCPNJ(string value)
+        public string FromatCPForCPNJ(string value)
         {
             if (value.Length == 11)
             {

@@ -12,7 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SportsX.Application.Helpers;
+using SportsX.Persistence;
 using SportsX.Persistence.Context;
+using SportsX.Persistence.Contracts;
 
 namespace SportsX.API
 {
@@ -28,9 +31,25 @@ namespace SportsX.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
 
             var connection = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<SportsXDbContext>(x => x.UseSqlServer(connection));
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddSingleton<Formatters>();
+
+
+            // DI para o projeto de Persistencia
+            services.AddScoped<IGenericPersist, GenericPersist>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -54,6 +73,10 @@ namespace SportsX.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(x => x.AllowAnyHeader()
+                              .AllowAnyMethod()
+                              .AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {

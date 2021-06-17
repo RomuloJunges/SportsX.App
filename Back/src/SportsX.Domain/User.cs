@@ -7,7 +7,7 @@ namespace SportsX.Domain
     {
         public string FullName { get; set; }
         public string CompanyName { get; set; }
-        public string CPForCNPJ { get; set; }
+        public string Document { get; set; }
         public string Email { get; set; }
         public string CEP { get; set; }
         public EClassification Classification { get; set; }
