@@ -14,7 +14,7 @@ namespace SportsX.Persistence.Mappings
             builder.Property(u => u.CPForCNPJ).HasColumnType("varchar(14)");
             builder.Property(u => u.Email).IsRequired().HasColumnType("varchar(150)");
             builder.Property(u => u.CEP).HasColumnType("varchar(7)");
-            builder.Property(u => u.Classification).IsRequired().HasColumnType("int(1)");
+            builder.Property(u => u.Classification).IsRequired().HasColumnType("int");
 
             builder.HasMany(p => p.Phones).WithOne(u => u.User).HasForeignKey(p => p.UserId);
 
