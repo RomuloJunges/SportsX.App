@@ -10,4 +10,14 @@
     <Folder Include="Contracts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SportsX.Domain\SportsX.Domain.csproj" />
+    <ProjectReference Include="..\SportsX.Persistence\SportsX.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
