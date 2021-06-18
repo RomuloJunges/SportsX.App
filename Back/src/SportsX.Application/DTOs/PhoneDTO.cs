@@ -7,9 +7,10 @@ namespace SportsX.Application.DTOs
     {
         public Guid Id;
 
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public Guid UserId { get; set; }
-        
-        [StringLength(11, MinimumLength = 11, ErrorMessage = "The field {0} must have 11 characters")]
+
+        [StringLength(11, MinimumLength = 11, ErrorMessage = "O campo {0} precisa ter 11 caracteres")]
         public string Number { get; set; }
 
         public UserDTO User { get; set; }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using SportsX.Application.DTOs.Extensions;
 
 namespace SportsX.Application.DTOs
 {
@@ -8,22 +9,23 @@ namespace SportsX.Application.DTOs
     {
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is required")]
-        [StringLength(100, ErrorMessage = "The field {0} must have a maximum of 100 characters")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [StringLength(100, ErrorMessage = "O campo {0} tem um máximo de 100 caracteres")]
         public string FullName { get; set; }
 
-        [StringLength(100, ErrorMessage = "The field {0} must have a maximum of 100 characters")]
+        [StringLength(100, ErrorMessage = "O campo {0} tem um máximo de 100 caracteres")]
         public string CompanyName { get; set; }
 
+        [Document(ErrorMessage = "O campo {0} é inválido, coloque no formato CPF ou CNPJ")]
         public string Document { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is required")]
-        [EmailAddress(ErrorMessage = "Must be a valid email")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [EmailAddress(ErrorMessage = "O {0} precisa ser válido")]
         public string Email { get; set; }
 
         public string CEP { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is required")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int Classification { get; set; }
 
         public IEnumerable<PhoneDTO> Phones { get; set; }

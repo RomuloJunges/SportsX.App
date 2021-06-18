@@ -22,6 +22,11 @@ namespace SportsX.Persistence
             _context.AddAsync(entity);
         }
 
+        public void AddRange<T>(T[] entities) where T : class
+        {
+            _context.AddRangeAsync(entities);
+        }
+
         public void Update<T>(T entity) where T : class
         {
             _context.Update(entity);

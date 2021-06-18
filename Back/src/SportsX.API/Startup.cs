@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SportsX.Application;
+using SportsX.Application.Contracts;
 using SportsX.Application.Helpers;
 using SportsX.Persistence;
 using SportsX.Persistence.Context;
@@ -47,9 +49,14 @@ namespace SportsX.API
             services.AddSingleton<Formatters>();
 
 
-            // DI para o projeto de Persistencia
+            // DI para o projeto Persistencia
             services.AddScoped<IGenericPersist, GenericPersist>();
+            services.AddScoped<IUserPersist, UserPersist>();
+            services.AddScoped<IPhonePersist, PhonePersist>();
 
+            //DI para o projeto Application
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPhoneService, PhoneService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
