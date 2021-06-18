@@ -21,6 +21,9 @@ namespace SportsX.Application
             this._mapper = mapper;
         }
 
+
+        //Método para adicionar o user fazendo a conversão do DTO que foi recebido da Controller para o Domain
+        //Após salvar as mudanças do context retorna o usuário inserido mapeado para DTO
         public async Task<UserDTO> AddUser(UserDTO model)
         {
             try
@@ -44,6 +47,8 @@ namespace SportsX.Application
             }
         }
 
+        //Método para atualizar o user com base no UserDTO passado pelo modelo
+        //Após salvar as mudanças no banco ele retorna o mesmo usuário atualizado
         public async Task<UserDTO> UpdateUser(UserDTO model)
         {
             try
@@ -69,6 +74,7 @@ namespace SportsX.Application
             }
         }
 
+        //Realiza o Delete do user com base no id informado pela Controller
         public async Task<bool> DeleteUser(Guid userId)
         {
             try
@@ -86,6 +92,8 @@ namespace SportsX.Application
             }
         }
 
+
+        //Retorna todos os Users
         public async Task<UserDTO[]> GetAllUsersAsync()
         {
             try
@@ -104,6 +112,7 @@ namespace SportsX.Application
             }
         }
 
+        //Retorna o User com base no ID informado
         public async Task<UserDTO> GetUserByIdAsync(Guid userId)
         {
             try

@@ -50,8 +50,6 @@ namespace SportsX.API
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddSingleton<Formatters>();
-
 
             // DI para o projeto Persistencia
             services.AddScoped<IGenericPersist, GenericPersist>();

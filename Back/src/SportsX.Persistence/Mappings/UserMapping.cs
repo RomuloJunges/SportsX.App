@@ -6,6 +6,7 @@ namespace SportsX.Persistence.Mappings
 {
     public class UserMapping : IEntityTypeConfiguration<User>
     {
+        //Mapeamento das colunas da tabela Users com EF Core
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(u => u.Id);

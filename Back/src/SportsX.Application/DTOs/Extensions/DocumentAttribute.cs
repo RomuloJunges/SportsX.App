@@ -1,8 +1,4 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.Extensions.Localization;
 using SportsX.Application.Utils;
 
 namespace SportsX.Application.DTOs.Extensions

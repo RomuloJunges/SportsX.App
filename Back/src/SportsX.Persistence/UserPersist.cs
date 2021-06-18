@@ -17,6 +17,7 @@ namespace SportsX.Persistence
             this._context = context;
         }
 
+        //Insere todos os Phones relacionados ao user pelo Include
         public async Task<User[]> GetAllUsersAsync()
         {
             IQueryable<User> query = _context.Users.Include(u => u.Phones).AsNoTracking();
@@ -26,6 +27,7 @@ namespace SportsX.Persistence
             return await query.ToArrayAsync();
         }
 
+        //Insere todos os Phones relacionados ao user pelo Include
         public async Task<User> GetUserByIdAsync(Guid userId)
         {
             IQueryable<User> query = _context.Users.Include(u => u.Phones).AsNoTracking();

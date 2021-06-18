@@ -6,6 +6,7 @@ namespace SportsX.Persistence.Mappings
 {
     public class PhoneMapping : IEntityTypeConfiguration<Phone>
     {
+        //Mapeamento das colunas da tabela Phones com EF Core
         public void Configure(EntityTypeBuilder<Phone> builder)
         {
             builder.HasKey(p => p.Id);
