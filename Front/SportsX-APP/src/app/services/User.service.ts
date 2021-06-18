@@ -15,4 +15,7 @@ export class UserService {
     return this.http.get<User[]>(`${Constants.API_URL}user`);
   }
 
+  public deleteUser(id: string):Observable<any>{
+    return this.http.delete(`${Constants.API_URL}user/${id}`);
+  }
 }

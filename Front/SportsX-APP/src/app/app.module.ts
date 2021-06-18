@@ -16,6 +16,8 @@ import { NavComponent } from './shared/nav/nav.component';
 
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 import { DocumentPipe } from './helpers/Document.pipe';
 import { PhonePipe } from './helpers/Phone.pipe';
 
@@ -36,6 +38,7 @@ import { PhonePipe } from './helpers/Phone.pipe';
     HttpClientModule,
     NgxSpinnerModule,
     FormsModule,
+    ModalModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: 'toast-bottom-right',
