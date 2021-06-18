@@ -40,6 +40,10 @@ namespace SportsX.API
                 .AllowAnyHeader();
             }));
 
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             var connection = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<SportsXDbContext>(x => x.UseSqlServer(connection));
@@ -63,6 +67,8 @@ namespace SportsX.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SportsX.API", Version = "v1" });
             });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,7 +13,7 @@ namespace SportsX.Persistence.Mappings
             builder.Property(u => u.CompanyName).HasColumnType("varchar(100)");
             builder.Property(u => u.Document).HasColumnType("varchar(14)");
             builder.Property(u => u.Email).IsRequired().HasColumnType("varchar(150)");
-            builder.Property(u => u.CEP).HasColumnType("varchar(7)");
+            builder.Property(u => u.CEP).HasColumnType("varchar(8)");
             builder.Property(u => u.Classification).IsRequired().HasColumnType("int");
 
             builder.HasMany(p => p.Phones).WithOne(u => u.User).HasForeignKey(p => p.UserId);
