@@ -23,6 +23,7 @@ namespace SportsX.Application.DTOs
         [EmailAddress(ErrorMessage = "O {0} precisa ser válido")]
         public string Email { get; set; }
 
+        [StringLength(8, MinimumLength = 8, ErrorMessage = "O campo {0} precisa ter 8 caracteres")]
         public string CEP { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]

@@ -32,6 +32,11 @@ namespace SportsX.Persistence
             _context.Update(entity);
         }
 
+        public void UpdateRange<T>(T[] entities) where T : class
+        {
+            _context.UpdateRange(entities);
+        }
+
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);

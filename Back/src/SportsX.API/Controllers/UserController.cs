@@ -34,6 +34,23 @@ namespace SportsX.API.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByid(Guid id)
+        {
+            try
+            {
+                var user = await _userService.GetUserByIdAsync(id);
+                if (user == null) return NoContent();
+
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar user pelo id. Erro: {ex.Message}");
+            }
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserDTO userDTO)
         {

@@ -32,7 +32,7 @@ namespace SportsX.Application
 
                 if (await _genericPersist.SaveChangesAsync())
                 {
-                    var result = await _phonePersist.GetPhonesByUserAsync(model[0].UserId);
+                    var result = await _phonePersist.GetPhonesByUserAsync(phones[0].UserId);
                     return _mapper.Map<PhoneDTO[]>(result);
                 }
 
@@ -44,20 +44,21 @@ namespace SportsX.Application
             }
         }
 
-        public async Task<PhoneDTO> UpdatePhone(PhoneDTO model)
+        public async Task<PhoneDTO[]> UpdatePhone(PhoneDTO[] model)
         {
             try
             {
-                var phone = await _phonePersist.GetPhoneByIdAsync(model.Id);
-                if (phone == null) return null;
+                var phones = _mapper.Map<Phone[]>(model);
+                if (phones == null) return null;
 
-                _mapper.Map(model, phone);
-                _genericPersist.Update<Phone>(phone);
+                _genericPersist.UpdateRange<Phone>(phones);
+
                 if (await _genericPersist.SaveChangesAsync())
                 {
-                    var result = await _phonePersist.GetPhoneByIdAsync(phone.Id);
-                    return _mapper.Map<PhoneDTO>(result);
+                    var result = await _phonePersist.GetPhonesByUserAsync(phones[0].UserId);
+                    return _mapper.Map<PhoneDTO[]>(result);
                 }
+
                 return null;
             }
             catch (Exception ex)
@@ -90,6 +91,23 @@ namespace SportsX.Application
                 if (phones == null) return null;
 
                 var result = _mapper.Map<PhoneDTO[]>(phones);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<PhoneDTO> GetPhoneByIdAsync(Guid id)
+        {
+            try
+            {
+                var phone = await _phonePersist.GetPhoneByIdAsync(id);
+                if (phone == null) return null;
+
+                var result = _mapper.Map<PhoneDTO>(phone);
 
                 return result;
             }
