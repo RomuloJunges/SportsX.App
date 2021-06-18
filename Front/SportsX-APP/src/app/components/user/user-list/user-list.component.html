@@ -1,22 +1,47 @@
-<table class="table table-striped table-hover mt-5 rounded">
+<div class="input-group mb-2 mt-5">
+  <div class="input-group-prepend">
+    <div class="input-group-text"><i class="fas fa-search"></i></div>
+    <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por nome e razão social ou documento"
+        [(ngModel)]="filtroListaUser"
+        >
+  </div>
+</div>
+<table class="table table-striped table-hover rounded">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Nome Completo</th>
       <th scope="col">Documento</th>
+      <th scope="col">Tipo de Pessoa</th>
       <th scope="col">Classificação</th>
       <th scope="col">Telefones</th>
+      <th scope="col">Opções</th>
     </tr>
   </thead>
-  <tbody>
-    <tr *ngFor="let user of this.users">
+  <tbody *ngIf="this.users && this.users.length">
+    <tr *ngFor="let user of this.usersFiltro">
       <td>{{user.fullName}}</td>
       <td>{{user.document | DocumentFormat}}</td>
+      <td>
+        <span *ngIf="user.document.length == 11">Pessoa Física</span>
+        <span *ngIf="user.document.length == 14">Pessoa Jurídica></span>
+      </td>
       <td>{{classification[user.classification]}}</td>
       <td>
         <ul *ngFor="let phone of user.phones">
           <li>{{phone.number | PhoneFormat}}</li>
         </ul>
       </td>
+      <td></td>
     </tr>
   </tbody>
+  <tfoot *ngIf="!this.users.length">
+    <tr>
+      <td colspan="6" class="text-center">
+        <h4>Nenhum user encontrado!</h4>
+      </td>
+    </tr>
+  </tfoot>
 </table>
