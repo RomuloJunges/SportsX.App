@@ -10,13 +10,15 @@ namespace SportsX.Persistence.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Phone> Phones { get; set; }
 
+        /// <summary>
+        /// MetÃ³do para criar o banco de dados atravÃ©s do Mapping de casa modelo
+        /// Mapeamento do relacionamento de 1 para N
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Busca as classes que herdam IEntityTypeConfiguration e aplica as modificações
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(SportsXDbContext).Assembly);
 
-            //Mapeamento de 1 para N na qual o Objeto Phone possui 1 User e o mesmo possui muitos Phones
-            //com o comportamento de deletar todos os phones caso o user seja deletado
             modelBuilder.Entity<Phone>().HasOne(p => p.User).WithMany(u => u.Phones).HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);

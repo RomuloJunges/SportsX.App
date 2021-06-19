@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using SportsX.Domain.Enums;
+using System.Collections.Generic;
 
 namespace SportsX.Domain
 {

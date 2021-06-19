@@ -1,10 +1,16 @@
-using System.ComponentModel.DataAnnotations;
 using SportsX.Application.Utils;
+using System.ComponentModel.DataAnnotations;
 
 namespace SportsX.Application.DTOs.Extensions
 {
     public class DocumentAttribute : ValidationAttribute
     {
+        /// <summary>
+        /// DataAnnotation auxiliar para verificar se o CPF ou CNPJ e valido
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="validationContext"></param>
+        /// <returns></returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             string errorMessage = "CPF ou CNPJ inválido";
@@ -21,7 +27,7 @@ namespace SportsX.Application.DTOs.Extensions
                 }
                 else
                 {
-                return new ValidationResult(errorMessage);
+                    return new ValidationResult(errorMessage);
 
                 }
 

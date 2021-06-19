@@ -1,11 +1,11 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using SportsX.Application.Contracts;
 using SportsX.Application.DTOs;
 using SportsX.Domain;
 using SportsX.Persistence.Contracts;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SportsX.Application
 {
@@ -22,6 +22,13 @@ namespace SportsX.Application
             this._genericPersist = genericPersist;
         }
 
+
+        /// <summary>
+        /// Metodo auxiliar para adicionar um Phone
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task AddPhone(int userId, PhoneDTO model)
         {
             try
@@ -38,6 +45,13 @@ namespace SportsX.Application
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Metodo que verifica se o Array de Phones passado e para atualizar ou adicionar
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="models"></param>
+        /// <returns>Retorna um Array de Phones do User</returns>
         public async Task<PhoneDTO[]> SavePhone(int userId, PhoneDTO[] models)
         {
             try
@@ -74,6 +88,12 @@ namespace SportsX.Application
             }
         }
 
+        /// <summary>
+        /// Metodo para deletar o Phone
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="phoneId"></param>
+        /// <returns>Retorna o numero de modificacoes feita no banco de dados</returns>
         public async Task<bool> DeletePhone(int userId, int phoneId)
         {
             try
@@ -90,6 +110,12 @@ namespace SportsX.Application
             }
         }
 
+        /// <summary>
+        /// Retorna o Phone pelo ID do Phone e ID do User
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="phoneId"></param>
+        /// <returns>Phone</returns>
         public async Task<PhoneDTO> GetPhoneByIdsAsync(int userId, int phoneId)
         {
             try
@@ -107,6 +133,11 @@ namespace SportsX.Application
             }
         }
 
+        /// <summary>
+        /// Retorna todos os Phones do User pelo UserID
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Array de Phones</returns>
         public async Task<PhoneDTO[]> GetPhonesByUserIdAsync(int userId)
         {
             try

@@ -1,10 +1,9 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SportsX.Domain;
 using SportsX.Persistence.Context;
 using SportsX.Persistence.Contracts;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SportsX.Persistence
 {
@@ -17,7 +16,10 @@ namespace SportsX.Persistence
             this._context = context;
         }
 
-        //Insere todos os Phones relacionados ao user pelo Include
+        /// <summary>
+        /// Metodo que busca todos os Users com os Phones
+        /// </summary>
+        /// <returns>Array de Users</returns>
         public async Task<User[]> GetAllUsersAsync()
         {
             IQueryable<User> query = _context.Users.Include(u => u.Phones).AsNoTracking();
@@ -27,7 +29,11 @@ namespace SportsX.Persistence
             return await query.ToArrayAsync();
         }
 
-        //Insere todos os Phones relacionados ao user pelo Include
+        /// <summary>
+        /// Metodo que busca o User pelo ID passado nos parametros
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Retorna o primeiro User</returns>
         public async Task<User> GetUserByIdAsync(int userId)
         {
             IQueryable<User> query = _context.Users.Include(u => u.Phones).AsNoTracking();

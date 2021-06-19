@@ -6,6 +6,9 @@ namespace SportsX.Application.Helpers
 {
     public class SportsXProfile : Profile
     {
+        /// <summary>
+        /// Mapeamento do Model para DTO e vice versa
+        /// </summary>
         public SportsXProfile()
         {
             CreateMap<User, UserDTO>().ReverseMap();

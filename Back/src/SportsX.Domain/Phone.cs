@@ -1,5 +1,3 @@
-using System;
-
 namespace SportsX.Domain
 {
     public class Phone : Entity

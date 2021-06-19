@@ -1,9 +1,9 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SportsX.Application.Contracts;
 using SportsX.Application.DTOs;
+using System;
+using System.Threading.Tasks;
 
 namespace SportsX.API.Controllers
 {
