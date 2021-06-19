@@ -18,7 +18,7 @@ namespace SportsX.API.Controllers
         }
 
         [HttpGet("{userid}")]
-        public async Task<IActionResult> GetByUserId(Guid userid)
+        public async Task<IActionResult> GetByUserId(int userid)
         {
             try
             {
@@ -30,52 +30,36 @@ namespace SportsX.API.Controllers
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar recuperar phone pelo userid. Erro: {ex.Message}");
+                    $"Erro ao tentar recuperar phones pelo userid. Erro: {ex.Message}");
             }
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(PhoneDTO[] phoneDTO)
+        [HttpPut("update/{userId}")]
+        public async Task<IActionResult> Save(int userId, PhoneDTO[] phoneDTOs)
         {
             try
             {
-                var phones = await _phoneService.AddPhone(phoneDTO);
-                if (phones == null) return BadRequest();
+                var phones = await _phoneService.SavePhone(userId, phoneDTOs);
+                if (phones == null) return NoContent();
 
                 return Ok(phones);
             }
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar registrar phone. Erro: {ex.Message}");
+                    $"Erro ao tentar salvar phone. Erro: {ex.Message}");
             }
         }
 
-        [HttpPut("update")]
-        public async Task<IActionResult> Update(PhoneDTO[] phoneDTO)
+        [HttpDelete("{userId}/{phoneId}")]
+        public async Task<IActionResult> Delete(int userId, int phoneId)
         {
             try
             {
-                var phones = await _phoneService.UpdatePhone(phoneDTO);
-                if (phones == null) return BadRequest();
-
-                return Ok(phones);
-            }
-            catch (Exception ex)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar atualizar phone. Erro: {ex.Message}");
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id){
-            try
-            {
-                var phone = await _phoneService.GetPhoneByIdAsync(id);
+                var phone = await _phoneService.GetPhoneByIdsAsync(userId, phoneId);
                 if (phone == null) return NoContent();
 
-                return await _phoneService.DeletePhone(id)
+                return await _phoneService.DeletePhone(phone.UserId, phone.Id)
                         ? Ok(new { message = "Deletado" })
                         : throw new Exception("Ocorreu um erro ao tentar deletar o phone");
             }

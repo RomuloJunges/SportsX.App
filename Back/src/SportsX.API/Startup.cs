@@ -41,9 +41,10 @@ namespace SportsX.API
             }));
 
             services.AddControllersWithViews()
-                .AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+                .AddNewtonsoftJson(options => {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
+            });
 
             var connection = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<SportsXDbContext>(x => x.UseSqlServer(connection));

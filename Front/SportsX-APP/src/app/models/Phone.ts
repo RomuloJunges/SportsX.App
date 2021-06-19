@@ -1,7 +1,7 @@
 export interface Phone {
-  id: string;
+  id: number;
 
-  userId: string;
+  userId: number;
 
   number: string;
 }

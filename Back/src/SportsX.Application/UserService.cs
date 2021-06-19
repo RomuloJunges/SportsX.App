@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using SportsX.Application.Contracts;
@@ -75,7 +77,7 @@ namespace SportsX.Application
         }
 
         //Realiza o Delete do user com base no id informado pela Controller
-        public async Task<bool> DeleteUser(Guid userId)
+        public async Task<bool> DeleteUser(int userId)
         {
             try
             {
@@ -113,7 +115,7 @@ namespace SportsX.Application
         }
 
         //Retorna o User com base no ID informado
-        public async Task<UserDTO> GetUserByIdAsync(Guid userId)
+        public async Task<UserDTO> GetUserByIdAsync(int userId)
         {
             try
             {

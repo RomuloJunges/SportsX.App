@@ -35,7 +35,7 @@ namespace SportsX.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetByid(Guid id)
+        public async Task<IActionResult> GetByid(int id)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace SportsX.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {

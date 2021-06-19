@@ -28,7 +28,7 @@ namespace SportsX.Persistence
         }
 
         //Insere todos os Phones relacionados ao user pelo Include
-        public async Task<User> GetUserByIdAsync(Guid userId)
+        public async Task<User> GetUserByIdAsync(int userId)
         {
             IQueryable<User> query = _context.Users.Include(u => u.Phones).AsNoTracking();
 

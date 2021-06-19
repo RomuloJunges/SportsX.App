@@ -7,7 +7,6 @@ namespace SportsX.Persistence.Contracts
     public interface IUserPersist
     {
         Task<User[]> GetAllUsersAsync();
-        Task<User> GetUserByIdAsync(Guid userId);
-
+        Task<User> GetUserByIdAsync(int userId);
     }
 }

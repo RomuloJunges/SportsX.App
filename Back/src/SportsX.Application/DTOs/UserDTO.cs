@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 using SportsX.Application.DTOs.Extensions;
 
 namespace SportsX.Application.DTOs
 {
     public class UserDTO
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [StringLength(100, ErrorMessage = "O campo {0} tem um máximo de 100 caracteres")]
@@ -16,6 +18,8 @@ namespace SportsX.Application.DTOs
         [StringLength(100, ErrorMessage = "O campo {0} tem um máximo de 100 caracteres")]
         public string CompanyName { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [DefaultValue("")]
         [Document(ErrorMessage = "O campo {0} é inválido, coloque no formato CPF ou CNPJ")]
         public string Document { get; set; }
 
@@ -23,6 +27,8 @@ namespace SportsX.Application.DTOs
         [EmailAddress(ErrorMessage = "O {0} precisa ser válido")]
         public string Email { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [DefaultValue("")]
         [StringLength(8, MinimumLength = 8, ErrorMessage = "O campo {0} precisa ter 8 caracteres")]
         public string CEP { get; set; }
 

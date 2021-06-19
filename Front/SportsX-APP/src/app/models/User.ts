@@ -1,20 +1,19 @@
-import { Classification } from "./Classification.enum";
-import { Phone } from "./Phone";
+import { Phone } from './Phone';
 
 export interface User {
-  id: string;
+  id: number;
 
   fullName: string;
 
-  companyName: string;
+  companyName?: string;
 
-  document: string;
+  document?: string;
 
   email: string;
 
-  cEP: string;
+  cep?: string;
 
-  classification: Classification;
+  classification: number;
 
   phones: Phone[];
 }

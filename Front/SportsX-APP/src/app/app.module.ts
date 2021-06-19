@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -13,13 +13,14 @@ import { UserComponent } from './components/user/user.component';
 import { UserService } from './services/User.service';
 import { NavComponent } from './shared/nav/nav.component';
 
-
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { DocumentPipe } from './helpers/Document.pipe';
 import { PhonePipe } from './helpers/Phone.pipe';
+import { PhoneService } from './services/Phone.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { PhonePipe } from './helpers/Phone.pipe';
     UserListComponent,
     UserDetailsComponent,
     DocumentPipe,
-    PhonePipe
+    PhonePipe,
   ],
   imports: [
     BrowserModule,
@@ -38,18 +39,18 @@ import { PhonePipe } from './helpers/Phone.pipe';
     HttpClientModule,
     NgxSpinnerModule,
     FormsModule,
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
     ModalModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
-      progressBar: true
+      progressBar: true,
     }),
   ],
-  providers: [
-    UserService
-  ],
+  providers: [UserService, PhoneService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

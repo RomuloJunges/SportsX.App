@@ -17,20 +17,20 @@ namespace SportsX.Persistence
             this._context = context;
         }
 
-        public async Task<Phone> GetPhoneByIdAsync(Guid phoneId)
+        public async Task<Phone> GetPhoneByIdsAsync(int userId, int phoneId)
         {
-            IQueryable<Phone> query = _context.Phones.AsNoTracking();
+            IQueryable<Phone> query = _context.Phones;
 
-            query = query.Where(p => p.Id == phoneId);
+            query = query.AsNoTracking().Where(p => p.UserId == userId && p.Id == phoneId);
 
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<Phone[]> GetPhonesByUserAsync(Guid userId)
+        public async Task<Phone[]> GetPhonesByUserIdAsync(int userId)
         {
-            IQueryable<Phone> query = _context.Phones.AsNoTracking();
+            IQueryable<Phone> query = _context.Phones;
 
-            query = query.Where(p => p.UserId == userId);
+            query = query.AsNoTracking().Where(p => p.UserId == userId);
 
             return await query.ToArrayAsync();
         }

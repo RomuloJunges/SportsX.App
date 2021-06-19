@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using SportsX.Application.Contracts;
@@ -21,22 +22,51 @@ namespace SportsX.Application
             this._genericPersist = genericPersist;
         }
 
-        public async Task<PhoneDTO[]> AddPhone(PhoneDTO[] model)
+        public async Task AddPhone(int userId, PhoneDTO model)
         {
             try
             {
-                var phones = _mapper.Map<Phone[]>(model);
+                var phone = _mapper.Map<Phone>(model);
+                phone.UserId = userId;
+
+                _genericPersist.Add<Phone>(phone);
+
+                await _genericPersist.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<PhoneDTO[]> SavePhone(int userId, PhoneDTO[] models)
+        {
+            try
+            {
+                var phones = await _phonePersist.GetPhonesByUserIdAsync(userId);
                 if (phones == null) return null;
 
-                _genericPersist.AddRange<Phone>(phones);
-
-                if (await _genericPersist.SaveChangesAsync())
+                foreach (var model in models)
                 {
-                    var result = await _phonePersist.GetPhonesByUserAsync(phones[0].UserId);
-                    return _mapper.Map<PhoneDTO[]>(result);
+                    if (model.Id == 0)
+                    {
+                        await AddPhone(userId, model);
+                    }
+                    else
+                    {
+                        var phone = phones.FirstOrDefault(p => p.Id == model.Id);
+                        model.UserId = userId;
+
+                        _mapper.Map(model, phone);
+
+                        _genericPersist.Update<Phone>(phone);
+
+                        await _genericPersist.SaveChangesAsync();
+                    }
                 }
 
-                return null;
+                var returnPhones = await _phonePersist.GetPhonesByUserIdAsync(userId);
+
+                return _mapper.Map<PhoneDTO[]>(returnPhones);
             }
             catch (Exception ex)
             {
@@ -44,35 +74,12 @@ namespace SportsX.Application
             }
         }
 
-        public async Task<PhoneDTO[]> UpdatePhone(PhoneDTO[] model)
+        public async Task<bool> DeletePhone(int userId, int phoneId)
         {
             try
             {
-                var phones = _mapper.Map<Phone[]>(model);
-                if (phones == null) return null;
-
-                _genericPersist.UpdateRange<Phone>(phones);
-
-                if (await _genericPersist.SaveChangesAsync())
-                {
-                    var result = await _phonePersist.GetPhonesByUserAsync(phones[0].UserId);
-                    return _mapper.Map<PhoneDTO[]>(result);
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public async Task<bool> DeletePhone(Guid phoneId)
-        {
-            try
-            {
-                var phone = await _phonePersist.GetPhoneByIdAsync(phoneId);
-                if (phone == null) throw new Exception("Phone to delete not found");
+                var phone = await _phonePersist.GetPhoneByIdsAsync(userId, phoneId);
+                if (phone == null) throw new Exception("Phone para delete não encontrado");
 
                 _genericPersist.Delete<Phone>(phone);
                 return await _genericPersist.SaveChangesAsync();
@@ -83,16 +90,16 @@ namespace SportsX.Application
             }
         }
 
-        public async Task<PhoneDTO[]> GetPhonesByUserIdAsync(Guid userId)
+        public async Task<PhoneDTO> GetPhoneByIdsAsync(int userId, int phoneId)
         {
             try
             {
-                var phones = await _phonePersist.GetPhonesByUserAsync(userId);
-                if (phones == null) return null;
+                var phone = await _phonePersist.GetPhoneByIdsAsync(userId, phoneId);
+                if (phone == null) return null;
 
-                var result = _mapper.Map<PhoneDTO[]>(phones);
+                var returnPhone = _mapper.Map<PhoneDTO>(phone);
 
-                return result;
+                return returnPhone;
             }
             catch (Exception ex)
             {
@@ -100,16 +107,16 @@ namespace SportsX.Application
             }
         }
 
-        public async Task<PhoneDTO> GetPhoneByIdAsync(Guid id)
+        public async Task<PhoneDTO[]> GetPhonesByUserIdAsync(int userId)
         {
             try
             {
-                var phone = await _phonePersist.GetPhoneByIdAsync(id);
-                if (phone == null) return null;
+                var phones = await _phonePersist.GetPhonesByUserIdAsync(userId);
+                if (phones == null) return null;
 
-                var result = _mapper.Map<PhoneDTO>(phone);
+                var returnPhones = _mapper.Map<PhoneDTO[]>(phones);
 
-                return result;
+                return returnPhones;
             }
             catch (Exception ex)
             {

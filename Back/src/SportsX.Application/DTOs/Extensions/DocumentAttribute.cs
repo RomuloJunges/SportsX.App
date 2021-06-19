@@ -11,12 +11,20 @@ namespace SportsX.Application.DTOs.Extensions
 
             try
             {
+                if (value == null) return ValidationResult.Success;
+
+                if (string.IsNullOrEmpty(value.ToString())) return ValidationResult.Success;
+
                 if (DocumentUtils.IsDocumentValid(value.ToString()))
                 {
                     return ValidationResult.Success;
                 }
-
+                else
+                {
                 return new ValidationResult(errorMessage);
+
+                }
+
             }
             catch (System.Exception)
             {

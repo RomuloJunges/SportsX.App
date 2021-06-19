@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SportsX.Persistence.Migrations
 {
@@ -11,12 +10,13 @@ namespace SportsX.Persistence.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "varchar(100)", nullable: false),
                     CompanyName = table.Column<string>(type: "varchar(100)", nullable: true),
-                    CPForCNPJ = table.Column<string>(type: "varchar(14)", nullable: true),
+                    Document = table.Column<string>(type: "varchar(14)", nullable: true),
                     Email = table.Column<string>(type: "varchar(150)", nullable: false),
-                    CEP = table.Column<string>(type: "varchar(7)", nullable: true),
+                    CEP = table.Column<string>(type: "varchar(8)", nullable: true),
                     Classification = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -28,8 +28,9 @@ namespace SportsX.Persistence.Migrations
                 name: "Phones",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     Number = table.Column<string>(type: "varchar(11)", nullable: true)
                 },
                 constraints: table =>

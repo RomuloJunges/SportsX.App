@@ -8,8 +8,8 @@ namespace SportsX.Application.Contracts
     {
         Task<UserDTO> AddUser(UserDTO model);
         Task<UserDTO> UpdateUser(UserDTO model);
-        Task<bool> DeleteUser(Guid userId);
+        Task<bool> DeleteUser(int userId);
         Task<UserDTO[]> GetAllUsersAsync();
-        Task<UserDTO> GetUserByIdAsync(Guid userId);
+        Task<UserDTO> GetUserByIdAsync(int userId);
     }
 }

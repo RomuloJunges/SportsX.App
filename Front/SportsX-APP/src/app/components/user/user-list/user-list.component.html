@@ -27,27 +27,32 @@
       </tr>
     </thead>
     <tbody *ngIf="this.users && this.users.length">
-      <tr *ngFor="let user of this.usersFiltro">
+      <tr *ngFor="let user of this.usersFiltro" (click)="detailUser(user.id)" style="cursor: pointer;">
         <td>{{user.fullName}}</td>
         <td>{{user.document | DocumentFormat}}</td>
         <td>
-          <span *ngIf="user.document.length == 11">Pessoa Física</span>
-          <span *ngIf="user.document.length == 14">Pessoa Jurídica></span>
+          <span *ngIf="user.document?.length == 11">Pessoa Física</span>
+          <span *ngIf="user.document?.length == 14">Pessoa Jurídica</span>
         </td>
-        <td>{{classification[user.classification]}}</td>
+        <td>
+          <span *ngIf="user.classification === 1">Ativo</span>
+          <span *ngIf="user.classification === 2">Inativo</span>
+          <span *ngIf="user.classification === 3">Preferencial</span>
+        </td>
         <td>
           <ul *ngFor="let phone of user.phones">
             <li>{{phone.number | PhoneFormat}}</li>
           </ul>
         </td>
         <td>
-          <button type="button" class="btn btn-danger btn-md" tooltip="Excluir" (click)="openModal($event, template, user)">
+          <button type="button" class="btn btn-danger btn-md" tooltip="Excluir"
+            (click)="openModal($event, template, user)">
             <i class="fas fa-trash"></i>
           </button>
         </td>
       </tr>
     </tbody>
-    <tfoot *ngIf="!this.users.length">
+    <tfoot *ngIf="!this.users?.length">
       <tr>
         <td colspan="6" class="text-center">
           <h4>Nenhum usuário encontrado</h4>

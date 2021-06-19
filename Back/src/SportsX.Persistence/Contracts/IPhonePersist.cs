@@ -6,7 +6,7 @@ namespace SportsX.Persistence.Contracts
 {
     public interface IPhonePersist
     {
-        Task<Phone[]> GetPhonesByUserAsync(Guid userId);
-        Task<Phone> GetPhoneByIdAsync(Guid phoneId);
+        Task<Phone[]> GetPhonesByUserIdAsync(int userId);
+        Task<Phone> GetPhoneByIdsAsync(int userId, int phoneId);
     }
 }
