@@ -18,7 +18,7 @@ export class UserDetailsComponent implements OnInit {
   user!: User;
   phoneId!: number;
   method = 'post';
-  classificationSelected!: number;
+  classificationSelected = 1;
 
   constructor(
     public fb: FormBuilder,
@@ -37,7 +37,6 @@ export class UserDetailsComponent implements OnInit {
 
   public loadUser() {
     var userId = Number(this.activatedRouter.snapshot.paramMap.get('id'));
-    this.classificationSelected = 1;
     if (userId != null && userId != 0) {
       this.spinner.show();
 
@@ -54,11 +53,23 @@ export class UserDetailsComponent implements OnInit {
 
           this.spinner.hide();
         },
-        (error: any) => {
+        () => {
           this.toastr.error('Erro ao tentar carregar o usuário');
         }
       );
     }
+  }
+
+  get f(): any {
+    return this.form.controls;
+  }
+
+  get phones(): FormArray {
+    return this.form.get('phones') as FormArray;
+  }
+
+  get methodPut(): boolean {
+    return this.method === 'put';
   }
 
   private validation(): void {
@@ -133,6 +144,20 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
+  public addPhone(): void {
+    this.phones.push(this.createPhone({ id: 0 } as Phone));
+  }
+
+  public createPhone(phone: Phone): FormGroup {
+    return this.fb.group({
+      id: [phone.id],
+      number: [
+        phone.number,
+        [Validators.minLength(10), Validators.maxLength(11)],
+      ],
+    });
+  }
+
   public removePhone(index: number): void {
     this.phoneId = this.phones.get(index + '.id')?.value;
 
@@ -149,34 +174,8 @@ export class UserDetailsComponent implements OnInit {
     this.phones.removeAt(index);
   }
 
-  get phones(): FormArray {
-    return this.form.get('phones') as FormArray;
-  }
-
-  public addPhone(): void {
-    this.phones.push(this.createPhone({ id: 0 } as Phone));
-  }
-
-  public createPhone(phone: Phone): FormGroup {
-    return this.fb.group({
-      id: [phone.id],
-      number: [
-        phone.number,
-        [Validators.minLength(10), Validators.maxLength(11)],
-      ],
-    });
-  }
-
-  get methodPut(): boolean {
-    return this.method === 'put';
-  }
-
   public resetForm(): void {
     this.form.reset();
-  }
-
-  get f(): any {
-    return this.form.controls;
   }
 
   public checkDocument(): void {
